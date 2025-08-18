@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/manifoldco/promptui"
 )
 
 func introduction() {
-	fmt.Println("Hello and welcome to the world of Warcraft local tooling")
+	fmt.Println("Hello and welcome to the world of Warcraft local tooling. \nPlease use the directional arrow keys to navigate the following menus. \nPlease also note that currently the directional arrow keys up and down may trigger pc notification noises and therefore best to use left or right. \nThanks! ")
 }
 
 var initialMenu = []string{
@@ -38,4 +39,23 @@ var raidMenu = []string{
 
 func main() {
 	introduction()
+
+	selectMenuWithKeyboard(initialMenu)
+}
+
+func selectMenuWithKeyboard(menuName []string) {
+	// Create a prompt
+	prompt := promptui.Select{
+		Label: "Select Keyboard",
+		Items: menuName,
+	}
+	// Run the prompt and get the selected index
+	selected, _, err := prompt.Run()
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return
+	}
+
+	fmt.Printf("You selected: %s\n", menuName[selected])
+
 }
